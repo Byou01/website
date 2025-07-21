@@ -1,11 +1,22 @@
-// هذا الملف مخصص لأي أكواد تفاعلية في الموقع
-// في الوقت الحالي، الموقع يعتمد بشكل أساسي على HTML و CSS
-
 document.addEventListener('DOMContentLoaded', function() {
-    // هذه الدالة تضمن أن الكود سيعمل بعد تحميل الصفحة بالكامل
+    // هذا الكود يجعل رابط القسم الحالي في الشريط العلوي مميزاً عند التمرير
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.main-nav a');
 
-    console.log('الموقع جاهز.');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 60) {
+                current = section.getAttribute('id');
+            }
+        });
 
-    // يمكنك إضافة وظائف مستقبلية هنا
-    // مثال: تأثيرات عند التمرير، أو التحقق من صحة نماذج الإدخال، إلخ.
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
 });
