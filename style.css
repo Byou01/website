@@ -1,15 +1,16 @@
 /* --- إعدادات عامة وخطوط --- */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
 
-/* --- تعريف متغيرات الألوان الأساسية (الوضع النهاري) --- */
+/* --- تعريف متغيرات الألوان الأساسية --- */
 :root {
-    --bg-color: #ffffff;         /* لون الخلفية الرئيسي */
-    --bg-secondary-color: #f8f9fa; /* لون خلفية الأقسام */
-    --text-color: #555;          /* لون النص العادي */
-    --heading-color: #1a2639;    /* لون العناوين */
-    --border-color: #e9ecef;     /* لون الحدود */
-    --card-bg-color: #ffffff;    /* لون خلفية البطاقات */
+    --bg-color: #ffffff;
+    --bg-secondary-color: #f8f9fa;
+    --text-color: #555;
+    --heading-color: #1a2639;
+    --border-color: #e9ecef;
+    --card-bg-color: #ffffff;
     --card-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    --header-footer-bg: #1a2639; /* لون موحد للهيدر والفوتر */
 }
 
 /* --- تعريف متغيرات الوضع الليلي --- */
@@ -21,6 +22,7 @@ body.dark-mode {
     --border-color: #495057;
     --card-bg-color: #2a2a2a;
     --card-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    --header-footer-bg: #1e1e1e;
 }
 
 /* --- تعريف الثيمات الملونة --- */
@@ -63,38 +65,73 @@ section { padding: 80px 0; }
 .btn-secondary:hover { background-color: var(--primary-color); color: #ffffff; }
 
 .page-header { padding: 60px 0; background-color: var(--bg-secondary-color); text-align: center; transition: background-color 0.3s; }
-.page-header h1 { font-size: 2.5rem; }
+.page-header h1 { color: var(--primary-color); }
 
-/* --- الشريط العلوي وأدوات التحكم بالثيم --- */
-.main-header { background: var(--card-bg-color); box-shadow: var(--card-shadow); position: sticky; top: 0; z-index: 1000; padding: 15px 0; transition: background-color 0.3s, box-shadow 0.3s; }
+/* --- الشريط العلوي وأدوات التحكم (تصميم جديد) --- */
+.main-header {
+    background: var(--card-bg-color);
+    box-shadow: var(--card-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border-bottom: 1px solid var(--border-color);
+}
 .main-header .container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 1.8rem; font-weight: 700; color: var(--heading-color); }
+.logo { font-size: 1.8rem; font-weight: 700; color: var(--primary-color); }
 .main-nav ul { list-style: none; display: flex; gap: 25px; }
 .main-nav ul li a { color: var(--heading-color); text-decoration: none; font-weight: 600; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: color 0.3s, border-color 0.3s; }
 .main-nav ul li a:hover, .main-nav ul li a.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
-.controls-container { display: flex; align-items: center; gap: 20px; }
-.lang-switcher select { padding: 5px; border: 1px solid var(--border-color); border-radius: 5px; background-color: var(--bg-color); color: var(--text-color); font-family: 'Cairo', sans-serif; }
 
-.theme-switcher button { border: none; background: none; cursor: pointer; font-size: 1.2rem; color: var(--text-color); }
-.theme-colors button { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border-color); cursor: pointer; margin: 0 3px; }
+.controls-container { display: flex; align-items: center; gap: 15px; }
+.control-btn { border: none; background: var(--bg-secondary-color); color: var(--text-color); cursor: pointer; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; display: grid; place-items: center; transition: all 0.2s ease; border: 1px solid var(--border-color); }
+.control-btn:hover { color: var(--primary-color); border-color: var(--primary-color); }
+
+.lang-switcher select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--bg-secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 30px 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+}
+html[dir="rtl"] .lang-switcher select {
+    background-position: left 0.5rem center;
+    padding: 8px 12px 8px 30px;
+}
+
+.theme-colors { display: flex; align-items: center; background: var(--bg-secondary-color); padding: 5px; border-radius: 20px; border: 1px solid var(--border-color); }
+.theme-colors button { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; margin: 0 3px; transition: all 0.2s; }
 .theme-colors button.color-gold { background-color: #d9a404; }
 .theme-colors button.color-blue { background-color: #0d6efd; }
 .theme-colors button.color-green { background-color: #198754; }
-.theme-colors button.active { border-color: var(--primary-color); transform: scale(1.2); }
+.theme-colors button.active { border-color: var(--card-bg-color); transform: scale(1.2); box-shadow: 0 0 0 2px var(--primary-color); }
 
-/* --- القسم الرئيسي --- */
-.hero { position: relative; height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; background: url('https://images.unsplash.com/photo-1599249206228-7607a2625547?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover; }
-.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 38, 57, 0.7); }
-body.dark-mode .hero-overlay { background-color: rgba(0, 0, 0, 0.6); }
+/* --- القسم الرئيسي (Hero) --- */
+.hero { position: relative; height: 80vh; display: flex; align-items: center; text-align: center; color: #ffffff; background: url('https://images.unsplash.com/photo-1599249206228-7607a2625547?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--primary-color); opacity: 0.8; transition: background-color 0.3s; }
 .hero-content { position: relative; z-index: 1; }
 .hero h1 { color: #ffffff; margin-bottom: 20px; }
 .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px auto; line-height: 1.9; }
+.hero .btn-primary { background-color: #fff; color: var(--primary-color); }
+.hero .btn-primary:hover { background-color: #f0f0f0; }
 
-/* --- قسم لماذا تختارنا --- */
+
+/* --- قسم لماذا تختارنا (مع لون الثيم) --- */
 .why-us-section { background-color: var(--bg-secondary-color); transition: background-color 0.3s; }
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center; }
-.feature-item i { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+.feature-item i { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; transition: color 0.3s; }
 .feature-item h3 { margin-bottom: 10px; }
+
 
 /* --- صفحات المنتجات والمشاريع --- */
 .products-grid, .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
@@ -132,21 +169,20 @@ html[dir="ltr"] .specs-table th, html[dir="ltr"] .specs-table td { text-align: l
 #form-feedback { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
 #form-feedback.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
 
-/* --- التذييل --- */
-.main-footer { background-color: var(--heading-color); color: #ccc; padding-top: 60px; transition: background-color 0.3s; }
+/* --- التذييل (مع لون الثيم) --- */
+.main-footer { background-color: var(--header-footer-bg); color: #ccc; padding-top: 60px; transition: background-color 0.3s; }
 .footer-content { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; padding-bottom: 40px; }
+.footer-about .logo { color: var(--primary-color); }
 .footer-about h3, .footer-links h3 { color: #ffffff; margin-bottom: 15px; }
 .footer-links ul { list-style: none; }
 .footer-links ul li a { color: #ccc; text-decoration: none; margin-bottom: 10px; display: inline-block; transition: color 0.3s; }
 .footer-links ul li a:hover { color: var(--primary-color); }
-.footer-bottom { border-top: 1px solid #444; padding: 20px 0; text-align: center; font-size: 0.9rem; }
+.footer-bottom { border-top: 1px solid #495057; padding: 20px 0; text-align: center; font-size: 0.9rem; }
 
 /* --- التوافق مع الأجهزة الصغيرة --- */
 @media (max-width: 992px) {
-    .main-header .container { flex-wrap: wrap; justify-content: center; }
-    .main-nav { order: 3; width: 100%; margin-top: 15px; }
-    .main-nav ul { justify-content: center; }
-    .controls-container { order: 2; }
+    .main-nav { display: none; /* For simplicity on mobile, can be turned into a hamburger menu later */ }
+    .main-header .container { flex-wrap: wrap; justify-content: space-between; }
 }
 
 @media (max-width: 768px) {
@@ -156,4 +192,5 @@ html[dir="ltr"] .specs-table th, html[dir="ltr"] .specs-table td { text-align: l
     .hero { height: 70vh; }
     .product-detail-layout, .calculator-wrapper { grid-template-columns: 1fr; }
     .footer-content { grid-template-columns: 1fr; }
+    .controls-container { flex-grow: 1; justify-content: center; margin-top: 10px; }
 }

@@ -1,39 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- الجزء الأول: تحميل المكونات المشتركة والترجمة ---
 
+    // --- 1. تحميل المكونات المشتركة (Header & Footer) ---
     const loadCommonComponents = () => {
-        const headerContainer = document.querySelector('.main-header .container');
-        if (!headerContainer) return;
+        const headerContainer = document.querySelector('.main-header');
+        const footerContainer = document.querySelector('.main-footer');
+        
+        if (!headerContainer || !footerContainer) return;
 
-        // HTML للشريط العلوي مع إضافة أدوات التحكم بالثيم
-        const headerContent = `
-            <div class="logo">[اسم المحل]</div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html" data-i18n="navHome"></a></li>
-                    <li><a href="products.html" data-i18n="navProducts"></a></li>
-                    <li><a href="projects.html" data-i18n="navProjects"></a></li>
-                    <li><a href="calculator.html" data-i18n="navCalculator"></a></li>
-                    <li><a href="contact.html" data-i18n="navContact"></a></li>
-                </ul>
-            </nav>
-            <div class="controls-container">
-                <div class="theme-colors">
-                    <button class="color-gold" data-theme="gold" title="Theme Gold"></button>
-                    <button class="color-blue" data-theme="blue" title="Theme Blue"></button>
-                    <button class="color-green" data-theme="green" title="Theme Green"></button>
-                </div>
-                <div class="theme-switcher">
-                    <button id="theme-toggle" title="Toggle dark/light mode">
+        // HTML للشريط العلوي مع أدوات التحكم الجديدة
+        const headerHTML = `
+            <div class="container">
+                <a href="index.html" class="logo" data-i18n="companyName">[اسم المحل]</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html" data-i18n="navHome"></a></li>
+                        <li><a href="products.html" data-i18n="navProducts"></a></li>
+                        <li><a href="projects.html" data-i18n="navProjects"></a></li>
+                        <li><a href="calculator.html" data-i18n="navCalculator"></a></li>
+                        <li><a href="contact.html" data-i18n="navContact"></a></li>
+                    </ul>
+                </nav>
+                <div class="controls-container">
+                    <div class="theme-colors">
+                        <button class="color-gold" data-theme="gold" title="Theme Gold"></button>
+                        <button class="color-blue" data-theme="blue" title="Theme Blue"></button>
+                        <button class="color-green" data-theme="green" title="Theme Green"></button>
+                    </div>
+                    <button id="theme-toggle" class="control-btn" title="Toggle dark/light mode">
                         <i class="fas fa-moon"></i>
                     </button>
-                </div>
-                <div class="lang-switcher">
-                    <select id="language-selector">
-                        <option value="ar">العربية</option>
-                        <option value="fr">Français</option>
-                        <option value="en">English</option>
-                    </select>
+                    <div class="lang-switcher">
+                        <select id="language-selector">
+                            <option value="ar">العربية</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </div>
                 </div>
             </div>`;
 
@@ -41,11 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-about">
-                        <h3>[اسم المحل]</h3>
+                        <h3 class="logo" data-i18n="companyName">[اسم المحل]</h3>
                         <p data-i18n="partnerText"></p>
                     </div>
                     <div class="footer-links">
-                        <h3 data-i18n="navLinks">روابط سريعة</h3>
+                        <h3 data-i18n="navLinks"></h3>
                         <ul>
                             <li><a href="products.html" data-i18n="navProducts"></a></li>
                             <li><a href="projects.html" data-i18n="navProjects"></a></li>
@@ -54,26 +56,46 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; 2024 [اسم المحل]. جميع الحقوق محفوظة.</p>
+                    <p>&copy; 2024 <span data-i18n="companyName">[اسم المحل]</span>. <span data-i18n="footerRights"></span></p>
                 </div>
             </div>`;
 
-        headerContainer.innerHTML = headerContent;
-        document.querySelector('.main-footer').innerHTML = footerHTML;
-
-        // بعد تحميل المكونات، نقوم بإعداد كل شيء
-        setupLanguageSwitcher();
-        setupThemeControls();
+        headerContainer.innerHTML = headerHTML;
+        footerContainer.innerHTML = footerHTML;
     };
 
-    // قاموس لتخزين الترجمات المحملة
+    // --- 2. إدارة الإعدادات المحفوظة (Theme, Mode, Language) ---
+    
+    // قاموس لتخزين الترجمات
     let translations = {};
 
-    // دالة لجلب ملف الترجمة وتحديث المحتوى
+    // تطبيق الإعدادات من localStorage عند تحميل الصفحة
+    const applyPreferences = async () => {
+        // تطبيق الوضع (ليلي/نهاري)
+        const savedMode = localStorage.getItem('mode') || 'light';
+        document.body.classList.toggle('dark-mode', savedMode === 'dark');
+        updateThemeIcon(savedMode);
+
+        // تطبيق الثيم اللوني
+        const savedTheme = localStorage.getItem('theme') || 'gold';
+        document.body.setAttribute('data-theme', savedTheme);
+        updateActiveThemeButton(savedTheme);
+
+        // تطبيق اللغة
+        const savedLang = localStorage.getItem('language') || 'ar';
+        const languageSelector = document.getElementById('language-selector');
+        if(languageSelector) languageSelector.value = savedLang;
+        await setLanguage(savedLang); // ننتظر تحميل اللغة قبل إكمال أي شيء
+    };
+    
+    // دالة تحميل ملف اللغة وتحديث الواجهة
     const setLanguage = async (lang) => {
         try {
             const response = await fetch(`locales/${lang}.json`);
-            if (!response.ok) return;
+            if (!response.ok) {
+                console.error(`Translation file for ${lang} not found.`);
+                return;
+            }
             translations = await response.json();
         } catch (error) {
             console.error("Could not load translation file:", error);
@@ -83,12 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
             if (translations[key]) {
+                const value = translations[key];
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    if(element.placeholder) element.placeholder = translations[key];
-                } else if (element.tagName === 'META') {
-                     if(element.name === 'description') element.content = translations[key];
-                } else {
-                    element.innerHTML = translations[key];
+                    element.placeholder = value;
+                } else if (element.tagName === 'META' && element.name === 'description') {
+                    element.content = value;
+                } else if (element.tagName === 'TITLE') {
+                    document.title = value;
+                }
+                else {
+                    element.innerHTML = value;
                 }
             }
         });
@@ -98,45 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateActiveNav();
     };
 
-    const setupLanguageSwitcher = () => {
-        const languageSelector = document.getElementById('language-selector');
-        if (!languageSelector) return;
-        const savedLang = localStorage.getItem('language') || 'ar';
-        
-        languageSelector.value = savedLang;
-        setLanguage(savedLang);
 
-        languageSelector.addEventListener('change', (e) => {
-            const selectedLang = e.target.value;
-            localStorage.setItem('language', selectedLang);
-            setLanguage(selectedLang);
-        });
-    };
-    
-    // --- الجزء الجديد: التحكم بالثيم والوضع الليلي ---
-    const setupThemeControls = () => {
+    // --- 3. ربط الأحداث مع أزرار التحكم ---
+    const setupEventListeners = () => {
+        // زر الوضع الليلي
         const themeToggleButton = document.getElementById('theme-toggle');
+        if(themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                const isDarkMode = document.body.classList.toggle('dark-mode');
+                const newMode = isDarkMode ? 'dark' : 'light';
+                localStorage.setItem('mode', newMode);
+                updateThemeIcon(newMode);
+            });
+        }
+
+        // أزرار تغيير الثيم
         const themeColorButtons = document.querySelectorAll('.theme-colors button');
-
-        // تطبيق الوضع المحفوظ
-        const currentMode = localStorage.getItem('mode') || 'light';
-        document.body.classList.toggle('dark-mode', currentMode === 'dark');
-        updateThemeIcon(currentMode);
-
-        // تطبيق الثيم المحفوظ
-        const currentTheme = localStorage.getItem('theme') || 'gold';
-        document.body.setAttribute('data-theme', currentTheme);
-        updateActiveThemeButton(currentTheme);
-
-        // حدث زر الوضع الليلي
-        themeToggleButton.addEventListener('click', () => {
-            const isDarkMode = document.body.classList.toggle('dark-mode');
-            const newMode = isDarkMode ? 'dark' : 'light';
-            localStorage.setItem('mode', newMode);
-            updateThemeIcon(newMode);
-        });
-
-        // أحداث أزرار الألوان
         themeColorButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const theme = button.dataset.theme;
@@ -145,8 +148,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateActiveThemeButton(theme);
             });
         });
-    };
 
+        // قائمة تغيير اللغة
+        const languageSelector = document.getElementById('language-selector');
+        if(languageSelector){
+            languageSelector.addEventListener('change', (e) => {
+                const selectedLang = e.target.value;
+                localStorage.setItem('language', selectedLang);
+                setLanguage(selectedLang);
+            });
+        }
+    };
+    
+    
+    // --- 4. دوال مساعدة لتحديث الواجهة ---
     function updateThemeIcon(mode) {
         const themeToggleButton = document.getElementById('theme-toggle');
         if (themeToggleButton) {
@@ -156,70 +171,73 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function updateActiveThemeButton(theme) {
         document.querySelectorAll('.theme-colors button').forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.dataset.theme === theme) {
-                btn.classList.add('active');
-            }
+            btn.classList.toggle('active', btn.dataset.theme === theme);
         });
     }
 
-    // --- وظائف مساعدة ---
-    const updateActiveNav = () => {
+    function updateActiveNav() {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         document.querySelectorAll('.main-nav a').forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === currentPage) {
-                link.classList.add('active');
-            }
-        });
-    };
-
-    // --- الجزء الثاني: وظائف الصفحات التفاعلية (الآلة الحاسبة، نموذج التواصل) ---
-    // (الكود هنا لم يتغير، سيبقى كما هو)
-    const calculatorForm = document.getElementById('price-calculator');
-    if (calculatorForm) {
-        const pricesPerKg = { beams: 150, plates: 140, rods: 130 };
-        calculatorForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const type = document.getElementById('iron-type').value;
-            const quantity = parseFloat(document.getElementById('quantity').value);
-            const resultsOutput = document.getElementById('results-output');
-            const lang = localStorage.getItem('language') || 'ar';
-
-            if (isNaN(quantity) || quantity <= 0) {
-                resultsOutput.innerHTML = `<p style="color: var(--danger-color);">${translations.invalidInput || 'الرجاء إدخال كمية صالحة.'}</p>`;
-                return;
-            }
-            const pricePerUnit = pricesPerKg[type];
-            const totalPrice = (quantity * pricePerUnit).toLocaleString(lang === 'fr' ? 'fr-FR' : 'en-US');
-            resultsOutput.innerHTML = `
-                <p>${translations.estimatedCost || 'التكلفة التقديرية:'}</p>
-                <p class="price">${totalPrice} DZD</p>
-                <small>${translations.priceDisclaimer || '*الأسعار تقديرية وقد تختلف.'}</small>
-            `;
+            link.classList.toggle('active', link.getAttribute('href') === currentPage);
         });
     }
 
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let feedbackDiv = document.getElementById('form-feedback');
-            if (!feedbackDiv) {
-                feedbackDiv = document.createElement('div');
-                feedbackDiv.id = 'form-feedback';
-                contactForm.appendChild(feedbackDiv);
-            }
-            feedbackDiv.textContent = translations.formSuccess || 'شكراً لك! تم استلام طلبك وسنتواصل معك قريباً.';
-            feedbackDiv.className = 'success';
-            feedbackDiv.style.display = 'block';
-            contactForm.reset();
-            setTimeout(() => {
-                feedbackDiv.style.display = 'none';
-            }, 5000);
-        });
+    // --- 5. وظائف خاصة بالصفحات (الآلة الحاسبة، نموذج التواصل) ---
+    function initializePageSpecificScripts() {
+        // كود الآلة الحاسبة
+        const calculatorForm = document.getElementById('price-calculator');
+        if (calculatorForm) {
+            const pricesPerKg = { beams: 150, plates: 140, rods: 130 }; // أسعار وهمية
+            calculatorForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const type = document.getElementById('iron-type').value;
+                const quantity = parseFloat(document.getElementById('quantity').value);
+                const resultsOutput = document.getElementById('results-output');
+                
+                if (isNaN(quantity) || quantity <= 0) {
+                    resultsOutput.innerHTML = `<p style="color: red;">${translations.invalidInput || 'الرجاء إدخال كمية صالحة.'}</p>`;
+                    return;
+                }
+                const pricePerUnit = pricesPerKg[type];
+                const totalPrice = (quantity * pricePerUnit).toLocaleString(document.documentElement.lang.startsWith('en') ? 'en-US' : 'fr-FR');
+                resultsOutput.innerHTML = `
+                    <p>${translations.estimatedCost || 'التكلفة التقديرية:'}</p>
+                    <p class="price">${totalPrice} DZD</p>
+                    <small>${translations.priceDisclaimer || '*الأسعار تقديرية وقد تختلف.'}</small>
+                `;
+            });
+        }
+
+        // كود نموذج التواصل
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let feedbackDiv = document.getElementById('form-feedback');
+                if (!feedbackDiv) {
+                    feedbackDiv = document.createElement('div');
+                    feedbackDiv.id = 'form-feedback';
+                    contactForm.appendChild(feedbackDiv);
+                }
+                feedbackDiv.textContent = translations.formSuccess || 'شكراً لك! تم استلام طلبك وسنتواصل معك قريباً.';
+                feedbackDiv.className = 'success';
+                feedbackDiv.style.display = 'block';
+                contactForm.reset();
+                setTimeout(() => {
+                    feedbackDiv.style.display = 'none';
+                }, 5000);
+            });
+        }
     }
 
-    // --- بدء تشغيل كل شيء ---
-    loadCommonComponents();
+
+    // --- 6. التشغيل ---
+    async function initializeSite() {
+        loadCommonComponents();
+        await applyPreferences();
+        setupEventListeners();
+        initializePageSpecificScripts();
+    }
+
+    initializeSite();
 });
