@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="calculatorPageTitle">[اسم المحل] | حاسبة الوزن والسعر</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <!-- Header content will be loaded by JS -->
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 data-i18n="navCalculator">حاسبة الوزن والسعر</h1>
+            </div>
+        </section>
+
+        <section id="calculator" class="calculator-section">
+            <div class="container">
+                <div class="calculator-wrapper">
+                    <div class="calculator-form">
+                        <h3 data-i18n="calcTitle">حساب تكلفة الحديد</h3>
+                        <form id="price-calculator">
+                            <div class="form-group">
+                                <label for="iron-type" data-i18n="calcIronType">نوع الحديد:</label>
+                                <select id="iron-type">
+                                    <option value="beams" data-i18n="productBeams">عوارض حديدية</option>
+                                    <option value="plates" data-i18n="productPlates">ألواح فولاذية</option>
+                                    <option value="rods" data-i18n="productRods">قضبان حديدية</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity" data-i18n="calcQuantity">الكمية (بالكيلوغرام):</label>
+                                <input type="number" id="quantity" min="1" value="1000">
+                            </div>
+                            <button type="submit" class="btn btn-primary" data-i18n="calcButton">احسب السعر</button>
+                        </form>
+                    </div>
+                    <div class="calculator-results">
+                        <h3 data-i18n="calcResultsTitle">النتائج</h3>
+                        <div id="results-output">
+                            <p data-i18n="calcResultsPrompt">أدخل البيانات واضغط على زر الحساب لعرض التكلفة التقديرية.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <!-- Footer content will be loaded by JS -->
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
