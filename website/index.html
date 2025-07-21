@@ -4,69 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- عنوان الصفحة الذي يظهر في المتصفح -->
-    <title>بيع كافة أنواع الحديد بالكيلوغرام</title>
+    <title>[اسم المحل] | توريد حديد بالجملة للشركات</title>
     
-    <!-- وصف الموقع (مهم لمحركات البحث) -->
-    <meta name="description" content="متخصصون في بيع وتوريد كافة أنواع الحديد بالجملة للشركات والمشاريع الكبرى. جودة عالية وأسعار تنافسية.">
+    <meta name="description" content="متخصصون في بيع وتوريد كافة أنواع الحديد بالجملة للشركات والمشاريع الكبرى. جودة عالية، التزام بالمواعيد، وأسعار تنافسية.">
     
-    <!-- ربط ملف التصميم CSS -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- ربط مكتبة الأيقونات (Font Awesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-    <!-- رأس الصفحة (الشريط العلوي) -->
+    <!-- الشريط العلوي -->
     <header class="main-header">
         <div class="container">
-            <div class="logo">[اسم المحل هنا]</div>
+            <div class="logo">[اسم المحل]</div>
             <nav class="main-nav">
                 <ul>
+                    <li><a href="#hero">الرئيسية</a></li>
                     <li><a href="#products">منتجاتنا</a></li>
+                    <li><a href="#why-us">لماذا تختارنا؟</a></li>
                     <li><a href="#contact">تواصل معنا</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي للموقع -->
+    <!-- المحتوى الرئيسي -->
     <main>
-        <!-- القسم الترحيبي -->
-        <section class="hero">
-            <div class="container">
-                <h1>حديد بالجملة للشركات والمشاريع الكبرى</h1>
-                <p>نوفر أجود أنواع الحديد بكميات تلبي احتياجات مشاريعكم، مع التزام تام بالجودة والمواعيد.</p>
+        <!-- القسم الرئيسي (Hero) -->
+        <section id="hero" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1>شريككم الموثوق لتوريد الحديد بالجملة</h1>
+                <p>نوفر حلولاً متكاملة من أجود أنواع الحديد لتلبية متطلبات مشاريعكم الكبرى بدقة واحترافية.</p>
+                <a href="#contact" class="btn btn-primary">اطلب عرض سعر الآن</a>
             </div>
         </section>
 
         <!-- قسم المنتجات -->
         <section id="products" class="products-section">
             <div class="container">
-                <h2>أنواع الحديد المتوفرة</h2>
+                <h2>منتجاتنا من الحديد</h2>
                 <div class="products-grid">
                     <!-- المنتج الأول -->
                     <div class="product-card">
-                        <img src="images/beams.webp" alt="عوارض حديدية" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=صورة+المنتج';">
-                        <h3>عوارض حديدية (Beams)</h3>
+                        <div class="product-image">
+                            <img src="images/beams.webp" alt="عوارض حديدية" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=صورة+المنتج';">
+                        </div>
+                        <div class="product-info">
+                            <h3>عوارض حديدية (Beams)</h3>
+                            <p>متوفرة بمختلف الأحجام والمقاطع لتناسب كافة التطبيقات الإنشائية والصناعية.</p>
+                        </div>
                     </div>
                     <!-- المنتج الثاني -->
                     <div class="product-card">
-                        <img src="images/plates.webp" alt="ألواح فولاذية" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=صورة+المنتج';">
-                        <h3>ألواح فولاذية (Plates)</h3>
+                        <div class="product-image">
+                             <img src="images/plates.webp" alt="ألواح فولاذية" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=صورة+المنتج';">
+                        </div>
+                        <div class="product-info">
+                            <h3>ألواح فولاذية (Plates)</h3>
+                            <p>ألواح عالية المتانة بسماكات متنوعة، مثالية للصناعات الثقيلة وبناء الهياكل.</p>
+                        </div>
                     </div>
                     <!-- المنتج الثالث -->
                     <div class="product-card">
-                        <img src="images/rods.webp" alt="قضبان حديدية" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=صورة+المنتج';">
-                        <h3>قضبان حديدية (Rods)</h3>
+                        <div class="product-image">
+                            <img src="images/rods.webp" alt="قضبان حديدية" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=صورة+المنتج';">
+                        </div>
+                        <div class="product-info">
+                            <h3>قضبان حديدية (Rods)</h3>
+                            <p>قضبان تسليح وقضبان متعددة الاستخدامات تتميز بالقوة والمرونة الفائقة.</p>
+                        </div>
                     </div>
-                    <!-- المنتج الرابع -->
-                    <div class="product-card">
-                        <img src="images/pipes.webp" alt="أنابيب معدنية" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=صورة+المنتج';">
-                        <h3>أنابيب معدنية (Pipes)</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم لماذا تختارنا؟ -->
+        <section id="why-us" class="why-us-section">
+            <div class="container">
+                <h2>لماذا تختارنا كمورد لمشاريعك؟</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>جودة معتمدة</h3>
+                        <p>نلتزم بتوفير حديد مطابق لأعلى معايير الجودة العالمية لضمان سلامة ومتانة مشاريعكم.</p>
                     </div>
-                    <!-- يمكنك إضافة المزيد من المنتجات هنا بنفس الطريقة -->
+                    <div class="feature-item">
+                        <i class="fas fa-truck-fast"></i>
+                        <h3>التزام بالمواعيد</h3>
+                        <p>نفهم أهمية الوقت في المشاريع الكبرى، ونضمن تسليم الطلبيات في المواعيد المحددة بدقة.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-handshake"></i>
+                        <h3>شريك موثوق</h3>
+                        <p>نبني علاقات طويلة الأمد مع عملائنا قائمة على الثقة والشفافية في التعامل.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -74,35 +107,44 @@
         <!-- قسم التواصل -->
         <section id="contact" class="contact-section">
             <div class="container">
-                <h2>تواصل معنا للطلب والاستفسار</h2>
-                <p>فريقنا جاهز للرد على جميع استفساراتكم وتلبية طلباتكم.</p>
+                <h2>هل أنت جاهز لبدء مشروعك؟</h2>
+                <p>تواصل مع فريق المبيعات لدينا للحصول على استشارة وعرض سعر مخصص لاحتياجاتك.</p>
                 <div class="contact-links">
                     <a href="https://api.whatsapp.com/send?phone=213775458700" class="contact-link whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> واتساب
-                    </a>
-                    <a href="https://web.facebook.com/profile.php?id=61578240159127" class="contact-link facebook" target="_blank">
-                        <i class="fab fa-facebook"></i> فيسبوك
+                        <i class="fab fa-whatsapp"></i> تواصل عبر واتساب
                     </a>
                     <a href="tel:+213554764535" class="contact-link phone">
-                        <i class="fas fa-phone"></i> اتصال هاتفي
+                        <i class="fas fa-phone"></i> اتصل بنا مباشرة
                     </a>
-                </div>
-                 <div class="phone-number-display">
-                    <p>أو اتصل مباشرة على الرقم:</p>
-                    <p dir="ltr">+213 554 76 45 35</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- تذييل الصفحة -->
-    <footer class="main-footer-bottom">
+    <!-- التذييل -->
+    <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2024 [اسم المحل هنا]. جميع الحقوق محفوظة.</p>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>[اسم المحل]</h3>
+                    <p>موردكم الأول للحديد بالجملة. ملتزمون بالجودة والموثوقية لدعم نجاح مشاريعكم.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="#products">منتجاتنا</a></li>
+                        <li><a href="#why-us">لماذا تختارنا؟</a></li>
+                        <li><a href="#contact">تواصل معنا</a></li>
+                        <li><a href="https://web.facebook.com/profile.php?id=61578240159127" target="_blank">صفحتنا على فيسبوك</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 [اسم المحل]. جميع الحقوق محفوظة.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- ربط ملف الجافاسكريبت -->
     <script src="script.js"></script>
 </body>
 </html>
