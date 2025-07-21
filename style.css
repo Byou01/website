@@ -1,0 +1,159 @@
+/* --- إعدادات عامة وخطوط --- */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+/* --- تعريف متغيرات الألوان الأساسية (الوضع النهاري) --- */
+:root {
+    --bg-color: #ffffff;         /* لون الخلفية الرئيسي */
+    --bg-secondary-color: #f8f9fa; /* لون خلفية الأقسام */
+    --text-color: #555;          /* لون النص العادي */
+    --heading-color: #1a2639;    /* لون العناوين */
+    --border-color: #e9ecef;     /* لون الحدود */
+    --card-bg-color: #ffffff;    /* لون خلفية البطاقات */
+    --card-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* --- تعريف متغيرات الوضع الليلي --- */
+body.dark-mode {
+    --bg-color: #121212;
+    --bg-secondary-color: #1e1e1e;
+    --text-color: #adb5bd;
+    --heading-color: #e9ecef;
+    --border-color: #495057;
+    --card-bg-color: #2a2a2a;
+    --card-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* --- تعريف الثيمات الملونة --- */
+body[data-theme="gold"] {
+    --primary-color: #d9a404;
+    --primary-hover-color: #c89603;
+}
+body[data-theme="blue"] {
+    --primary-color: #0d6efd;
+    --primary-hover-color: #0b5ed7;
+}
+body[data-theme="green"] {
+    --primary-color: #198754;
+    --primary-hover-color: #157347;
+}
+
+/* --- إعدادات عامة --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.8;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-weight: 700; line-height: 1.3; color: var(--heading-color); transition: color 0.3s; }
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; text-align: center; margin-bottom: 50px; }
+h3 { font-size: 1.5rem; }
+section { padding: 80px 0; }
+
+/* --- مكونات عامة --- */
+.btn { display: inline-block; padding: 12px 28px; border-radius: 5px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; border: none; cursor: pointer; }
+.btn-primary { background-color: var(--primary-color); color: #ffffff; }
+.btn-primary:hover { background-color: var(--primary-hover-color); transform: translateY(-2px); }
+.btn-secondary { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); }
+.btn-secondary:hover { background-color: var(--primary-color); color: #ffffff; }
+
+.page-header { padding: 60px 0; background-color: var(--bg-secondary-color); text-align: center; transition: background-color 0.3s; }
+.page-header h1 { font-size: 2.5rem; }
+
+/* --- الشريط العلوي وأدوات التحكم بالثيم --- */
+.main-header { background: var(--card-bg-color); box-shadow: var(--card-shadow); position: sticky; top: 0; z-index: 1000; padding: 15px 0; transition: background-color 0.3s, box-shadow 0.3s; }
+.main-header .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.8rem; font-weight: 700; color: var(--heading-color); }
+.main-nav ul { list-style: none; display: flex; gap: 25px; }
+.main-nav ul li a { color: var(--heading-color); text-decoration: none; font-weight: 600; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: color 0.3s, border-color 0.3s; }
+.main-nav ul li a:hover, .main-nav ul li a.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+.controls-container { display: flex; align-items: center; gap: 20px; }
+.lang-switcher select { padding: 5px; border: 1px solid var(--border-color); border-radius: 5px; background-color: var(--bg-color); color: var(--text-color); font-family: 'Cairo', sans-serif; }
+
+.theme-switcher button { border: none; background: none; cursor: pointer; font-size: 1.2rem; color: var(--text-color); }
+.theme-colors button { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border-color); cursor: pointer; margin: 0 3px; }
+.theme-colors button.color-gold { background-color: #d9a404; }
+.theme-colors button.color-blue { background-color: #0d6efd; }
+.theme-colors button.color-green { background-color: #198754; }
+.theme-colors button.active { border-color: var(--primary-color); transform: scale(1.2); }
+
+/* --- القسم الرئيسي --- */
+.hero { position: relative; height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; background: url('https://images.unsplash.com/photo-1599249206228-7607a2625547?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(26, 38, 57, 0.7); }
+body.dark-mode .hero-overlay { background-color: rgba(0, 0, 0, 0.6); }
+.hero-content { position: relative; z-index: 1; }
+.hero h1 { color: #ffffff; margin-bottom: 20px; }
+.hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px auto; line-height: 1.9; }
+
+/* --- قسم لماذا تختارنا --- */
+.why-us-section { background-color: var(--bg-secondary-color); transition: background-color 0.3s; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center; }
+.feature-item i { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+.feature-item h3 { margin-bottom: 10px; }
+
+/* --- صفحات المنتجات والمشاريع --- */
+.products-grid, .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+.product-card, .project-card { background: var(--card-bg-color); border-radius: 8px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; overflow: hidden; transition: all 0.3s ease; }
+.product-card:hover, .project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+body.dark-mode .product-card:hover, body.dark-mode .project-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+.product-card .product-image img, .project-card img { width: 100%; height: 220px; object-fit: cover; }
+.product-card .product-info, .project-card .project-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.product-card .product-info h3, .project-card .project-info h3 { margin-bottom: 10px; }
+.product-card .product-info p { flex-grow: 1; }
+.product-card .product-info .btn { margin-top: 20px; }
+
+/* --- صفحة تفاصيل المنتج --- */
+.product-detail-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: flex-start; }
+.product-detail-image img { width: 100%; border-radius: 8px; }
+.specs-table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 30px; }
+.specs-table th, .specs-table td { padding: 12px; border: 1px solid var(--border-color); text-align: right; transition: background-color 0.3s, border-color 0.3s; }
+.specs-table thead { background-color: var(--bg-secondary-color); }
+html[dir="ltr"] .specs-table th, html[dir="ltr"] .specs-table td { text-align: left; }
+
+/* --- الآلة الحاسبة --- */
+.calculator-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: var(--bg-secondary-color); padding: 40px; border-radius: 8px; transition: background-color 0.3s; }
+.calculator-form .form-group { margin-bottom: 20px; }
+.calculator-results { background: var(--card-bg-color); padding: 30px; border-radius: 5px; border: 1px solid var(--border-color); transition: background-color 0.3s, border-color 0.3s; }
+.calculator-results h3 { margin-bottom: 20px; }
+#results-output p { font-size: 1.1rem; }
+#results-output .price { font-size: 1.8rem; font-weight: 700; color: var(--primary-color); }
+
+/* --- نموذج التواصل --- */
+.contact-form-wrapper { max-width: 800px; margin: 0 auto; background-color: var(--bg-secondary-color); padding: 40px; border-radius: 8px; transition: background-color 0.3s; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--heading-color); }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-family: 'Cairo', sans-serif; font-size: 1rem; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+.form-group textarea { resize: vertical; }
+#form-feedback { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
+#form-feedback.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+/* --- التذييل --- */
+.main-footer { background-color: var(--heading-color); color: #ccc; padding-top: 60px; transition: background-color 0.3s; }
+.footer-content { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; padding-bottom: 40px; }
+.footer-about h3, .footer-links h3 { color: #ffffff; margin-bottom: 15px; }
+.footer-links ul { list-style: none; }
+.footer-links ul li a { color: #ccc; text-decoration: none; margin-bottom: 10px; display: inline-block; transition: color 0.3s; }
+.footer-links ul li a:hover { color: var(--primary-color); }
+.footer-bottom { border-top: 1px solid #444; padding: 20px 0; text-align: center; font-size: 0.9rem; }
+
+/* --- التوافق مع الأجهزة الصغيرة --- */
+@media (max-width: 992px) {
+    .main-header .container { flex-wrap: wrap; justify-content: center; }
+    .main-nav { order: 3; width: 100%; margin-top: 15px; }
+    .main-nav ul { justify-content: center; }
+    .controls-container { order: 2; }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    section { padding: 60px 0; }
+    .hero { height: 70vh; }
+    .product-detail-layout, .calculator-wrapper { grid-template-columns: 1fr; }
+    .footer-content { grid-template-columns: 1fr; }
+}
