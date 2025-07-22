@@ -63,5 +63,17 @@
 "plasmaCalcSubTitle": "Enter the dimensions of the required piece",
 "sheetType": "Sheet Type:",
 "pieceWidth": "Piece Width (cm):",
-"pieceLength": "Piece Length (cm):"
+"pieceLength": "Piece Length (cm):",
+"shapeNote": "*For non-rectangular shapes, enter the maximum length and width.",
+"sheetSize": "2. Select sheet size to purchase:",
+"selectOption": "-- Select --",
+"selectSheetTypeFirst": "-- Select sheet type first --",
+"fillAllFields": "Please fill all fields correctly.",
+"pieceTooLarge": "The required piece is larger than the selected sheet.",
+"materialCost": "Material Cost:",
+"serviceCost": "Cutting Service Cost:",
+"totalCost": "Total Cost:",
+"remainingTitle": "Remaining Part of the Sheet:",
+"remainingArea": "Remaining Area:",
+"remainingDims": "Remaining Dimensions (approx.):"
 }

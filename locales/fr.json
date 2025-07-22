@@ -63,5 +63,17 @@
 "plasmaCalcSubTitle": "Entrez les dimensions de la pièce requise",
 "sheetType": "Type de tôle :",
 "pieceWidth": "Largeur de la pièce (cm) :",
-"pieceLength": "Longueur de la pièce (cm) :"
+"pieceLength": "Longueur de la pièce (cm) :",
+"shapeNote": "*Pour les formes non rectangulaires, entrez la longueur et la largeur maximales.",
+"sheetSize": "2. Choisissez la taille de la tôle à acheter :",
+"selectOption": "-- Sélectionner --",
+"selectSheetTypeFirst": "-- Choisissez d'abord le type de tôle --",
+"fillAllFields": "Veuillez remplir tous les champs correctement.",
+"pieceTooLarge": "La pièce demandée est plus grande que la tôle sélectionnée.",
+"materialCost": "Coût du matériau :",
+"serviceCost": "Coût du service de coupe :",
+"totalCost": "Coût total :",
+"remainingTitle": "Partie restante de la tôle :",
+"remainingArea": "Surface restante :",
+"remainingDims": "Dimensions restantes (environ) :"
 }

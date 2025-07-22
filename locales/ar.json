@@ -68,6 +68,18 @@
 "plasmaCalcSubTitle": "أدخل قياسات القطعة المطلوبة",
 "sheetType": "نوع الصفيحة:",
 "pieceWidth": "عرض القطعة (سم):",
-"pieceLength": "طول القطعة (سم):"
+"pieceLength": "طول القطعة (سم):",
+"shapeNote": "*للأشكال غير المستطيلة، أدخل أقصى طول وأقصى عرض.",
+"sheetSize": "2. اختر حجم الصفيحة للشراء:",
+"selectOption": "-- اختر --",
+"selectSheetTypeFirst": "-- اختر نوع الصفيحة أولاً --",
+"fillAllFields": "الرجاء ملء جميع الحقول بشكل صحيح.",
+"pieceTooLarge": "القطعة المطلوبة أكبر من حجم الصفيحة المختارة.",
+"materialCost": "تكلفة المادة:",
+"serviceCost": "تكلفة خدمة القص:",
+"totalCost": "التكلفة الإجمالية:",
+"remainingTitle": "الجزء المتبقي من الصفيحة:",
+"remainingArea": "المساحة المتبقية:",
+"remainingDims": "الأبعاد المتبقية (تقريبيًا):"
 
 }
