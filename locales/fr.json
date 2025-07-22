@@ -55,5 +55,6 @@
     "formSubmit": "Envoyer la demande",
     "urgentContactTitle": "Pour les demandes urgentes",
     "urgentContactWhatsApp": "WhatsApp",
-    "urgentContactPhone": "Téléphone"
+    "urgentContactPhone": "Téléphone",
+    "whatsappMessage": "Bonjour, j'aimerais me renseigner sur vos services."
 }

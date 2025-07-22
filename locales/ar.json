@@ -60,5 +60,7 @@
     "formSuccess": "شكراً لك! تم استلام طلبك وسنتواصل معك قريباً.",
     "urgentContactTitle": "للتواصل المباشر",
     "urgentContactWhatsApp": "واتساب",
-    "urgentContactPhone": "هاتف"
+    "urgentContactPhone": "هاتف",
+    "whatsappMessage": "السلام عليكم، أريد الاستفسار بخصوص خدماتكم."
+
 }

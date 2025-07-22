@@ -55,5 +55,6 @@
     "formSubmit": "Send Request",
     "urgentContactTitle": "For direct Inquiries",
     "urgentContactWhatsApp": "WhatsApp",
-    "urgentContactPhone": "Phone"
+    "urgentContactPhone": "Phone",
+    "whatsappMessage": "Hello, I would like to inquire about your services."
 }

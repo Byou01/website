@@ -66,29 +66,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 2. إدارة الإعدادات المحفوظة (Theme, Mode, Language) ---
     
-    // قاموس لتخزين الترجمات
     let translations = {};
 
-    // تطبيق الإعدادات من localStorage عند تحميل الصفحة
     const applyPreferences = async () => {
-        // تطبيق الوضع (ليلي/نهاري)
         const savedMode = localStorage.getItem('mode') || 'light';
         document.body.classList.toggle('dark-mode', savedMode === 'dark');
         updateThemeIcon(savedMode);
 
-        // تطبيق الثيم اللوني
         const savedTheme = localStorage.getItem('theme') || 'gold';
         document.body.setAttribute('data-theme', savedTheme);
         updateActiveThemeButton(savedTheme);
 
-        // تطبيق اللغة
         const savedLang = localStorage.getItem('language') || 'ar';
         const languageSelector = document.getElementById('language-selector');
         if(languageSelector) languageSelector.value = savedLang;
-        await setLanguage(savedLang); // ننتظر تحميل اللغة قبل إكمال أي شيء
+        await setLanguage(savedLang);
     };
     
-    // دالة تحميل ملف اللغة وتحديث الواجهة
     const setLanguage = async (lang) => {
         try {
             const response = await fetch(`locales/${lang}.json`);
@@ -112,22 +106,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.content = value;
                 } else if (element.tagName === 'TITLE') {
                     document.title = value;
-                }
-                else {
+                } else {
                     element.innerHTML = value;
                 }
             }
         });
+
+        // --- تحديث رابط الواتساب بالرسالة المترجمة ---
+        const whatsappLink = document.getElementById('whatsapp-link');
+        if (whatsappLink && translations.whatsappMessage) {
+            const phoneNumber = '213554764535';
+            const message = encodeURIComponent(translations.whatsappMessage);
+            const newHref = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+            whatsappLink.setAttribute('href', newHref);
+        }
         
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
         updateActiveNav();
     };
 
-
     // --- 3. ربط الأحداث مع أزرار التحكم ---
     const setupEventListeners = () => {
-        // زر الوضع الليلي
         const themeToggleButton = document.getElementById('theme-toggle');
         if(themeToggleButton) {
             themeToggleButton.addEventListener('click', () => {
@@ -138,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // أزرار تغيير الثيم
         const themeColorButtons = document.querySelectorAll('.theme-colors button');
         themeColorButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -149,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // قائمة تغيير اللغة
         const languageSelector = document.getElementById('language-selector');
         if(languageSelector){
             languageSelector.addEventListener('change', (e) => {
@@ -159,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     };
-    
     
     // --- 4. دوال مساعدة لتحديث الواجهة ---
     function updateThemeIcon(mode) {
@@ -182,37 +179,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. وظائف خاصة بالصفحات (الآلة الحاسبة، نموذج التواصل) ---
-   function initializePageSpecificScripts() {
-    // كود الآلة الحاسبة
-    const calculatorForm = document.getElementById('price-calculator');
-
-    // أضف هذا الشرط من هنا
-    if (calculatorForm) { 
-        const pricesPerKg = { beams: 150, plates: 140, rods: 130 };
-        calculatorForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const type = document.getElementById('iron-type').value;
-            const quantity = parseFloat(document.getElementById('quantity').value);
-            const resultsOutput = document.getElementById('results-output');
-
-            if (isNaN(quantity) || quantity <= 0) {
-                resultsOutput.innerHTML = `<p style="color: red;">${translations.invalidInput || 'الرجاء إدخال كمية صالحة.'}</p>`;
-                return;
-            }
-            const pricePerUnit = pricesPerKg[type];
-            const totalPrice = (quantity * pricePerUnit).toLocaleString(document.documentElement.lang.startsWith('en') ? 'en-US' : 'fr-FR');
-            resultsOutput.innerHTML = `
-                <p>${translations.estimatedCost || 'التكلفة التقديرية:'}</p>
-                <p class="price">${totalPrice} DZD</p>
-                <small>${translations.priceDisclaimer || '*الأسعار تقديرية وقد تختلف.'}</small>
-            `;
-        });
-    } // إلى هنا
-}
-
-       
-
+    // --- 5. وظائف خاصة بالصفحات ---
+    function initializePageSpecificScripts() {
+        // كود الآلة الحاسبة
+        const calculatorForm = document.getElementById('price-calculator');
+        if (calculatorForm) {
+            const pricesPerKg = { beams: 150, plates: 140, rods: 130 }; // أسعار وهمية
+            calculatorForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const type = document.getElementById('iron-type').value;
+                const quantity = parseFloat(document.getElementById('quantity').value);
+                const resultsOutput = document.getElementById('results-output');
+                
+                if (isNaN(quantity) || quantity <= 0) {
+                    resultsOutput.innerHTML = `<p style="color: red;">${translations.invalidInput || 'الرجاء إدخال كمية صالحة.'}</p>`;
+                    return;
+                }
+                const pricePerUnit = pricesPerKg[type];
+                const totalPrice = (quantity * pricePerUnit).toLocaleString(document.documentElement.lang.startsWith('en') ? 'en-US' : 'fr-FR');
+                resultsOutput.innerHTML = `
+                    <p>${translations.estimatedCost || 'التكلفة التقديرية:'}</p>
+                    <p class="price">${totalPrice} DZD</p>
+                    <small>${translations.priceDisclaimer || '*الأسعار تقديرية وقد تختلف.'}</small>
+                `;
+            });
+        }
+        // تم حذف كود نموذج التواصل لأنه لم يعد ضرورياً بعد استخدام Formspree
+    }
 
     // --- 6. التشغيل ---
     async function initializeSite() {
