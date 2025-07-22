@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- تحديث رابط الواتساب بالرسالة المترجمة ---
         const whatsappLink = document.getElementById('whatsapp-link');
         if (whatsappLink && translations.whatsappMessage) {
-            const phoneNumber = '213554764535';
+            const phoneNumber = '213775458700';
             const message = encodeURIComponent(translations.whatsappMessage);
             const newHref = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
             whatsappLink.setAttribute('href', newHref);
