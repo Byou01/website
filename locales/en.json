@@ -56,5 +56,12 @@
     "urgentContactTitle": "For direct Inquiries",
     "urgentContactWhatsApp": "WhatsApp",
     "urgentContactPhone": "Phone",
-    "whatsappMessage": "Hello, I would like to inquire about your services."
+    "whatsappMessage": "Hello, I would like to inquire about your services.",
+    "plasmaCalcPageTitle": "[Company Name] | Plasma Cost Calculator",
+"navPlasmaCalc": "Plasma Calculator",
+"plasmaCalcTitle": "Plasma Cutting Cost Calculator",
+"plasmaCalcSubTitle": "Enter the dimensions of the required piece",
+"sheetType": "Sheet Type:",
+"pieceWidth": "Piece Width (cm):",
+"pieceLength": "Piece Length (cm):"
 }

@@ -56,5 +56,12 @@
     "urgentContactTitle": "Pour les demandes urgentes",
     "urgentContactWhatsApp": "WhatsApp",
     "urgentContactPhone": "Téléphone",
-    "whatsappMessage": "Bonjour, j'aimerais me renseigner sur vos services."
+    "whatsappMessage": "Bonjour, j'aimerais me renseigner sur vos services.",
+    "plasmaCalcPageTitle": "[Nom de l'entreprise] | Calculateur de coût Plasma",
+"navPlasmaCalc": "Calculateur Plasma",
+"plasmaCalcTitle": "Calculateur de coût de découpe Plasma",
+"plasmaCalcSubTitle": "Entrez les dimensions de la pièce requise",
+"sheetType": "Type de tôle :",
+"pieceWidth": "Largeur de la pièce (cm) :",
+"pieceLength": "Longueur de la pièce (cm) :"
 }

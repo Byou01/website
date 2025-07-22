@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="plasmaCalcPageTitle">[اسم المحل] | حاسبة تكلفة البلازما</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 data-i18n="plasmaCalcTitle">حاسبة تكلفة قص البلازما</h1>
+            </div>
+        </section>
+
+        <section id="calculator" class="calculator-section">
+            <div class="container">
+                <div class="calculator-wrapper">
+                    <div class="calculator-form">
+                        <h3 data-i18n="plasmaCalcSubTitle">أدخل قياسات القطعة المطلوبة</h3>
+                        <form id="plasma-calculator-form">
+                            <div class="form-group">
+                                <label for="sheet-type" data-i18n="sheetType">نوع الصفيحة:</label>
+                                <select id="sheet-type">
+                                    <option value="N4">N4</option>
+                                    <option value="N3">N3</option>
+                                    <option value="N24">N24</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="piece-width" data-i18n="pieceWidth">عرض القطعة (سم):</label>
+                                <input type="number" id="piece-width" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="piece-length" data-i18n="pieceLength">طول القطعة (سم):</label>
+                                <input type="number" id="piece-length" min="1" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" data-i18n="calcButton">احسب التكلفة</button>
+                        </form>
+                    </div>
+                    <div class="calculator-results">
+                        <h3 data-i18n="calcResultsTitle">النتائج</h3>
+                        <div id="plasma-results-output">
+                            <p data-i18n="calcResultsPrompt">أدخل البيانات واضغط على زر الحساب لعرض التكلفة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        </footer>
+    <script src="script.js"></script>
+</body>
+</html>

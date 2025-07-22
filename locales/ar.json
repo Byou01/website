@@ -61,6 +61,13 @@
     "urgentContactTitle": "للتواصل المباشر",
     "urgentContactWhatsApp": "واتساب",
     "urgentContactPhone": "هاتف",
-    "whatsappMessage": "السلام عليكم، أريد الاستفسار بخصوص خدماتكم."
+    "whatsappMessage": "السلام عليكم، أريد الاستفسار بخصوص خدماتكم.",
+    "plasmaCalcPageTitle": "[اسم المحل] | حاسبة تكلفة البلازما",
+"navPlasmaCalc": "حاسبة البلازما",
+"plasmaCalcTitle": "حاسبة تكلفة قص البلازما",
+"plasmaCalcSubTitle": "أدخل قياسات القطعة المطلوبة",
+"sheetType": "نوع الصفيحة:",
+"pieceWidth": "عرض القطعة (سم):",
+"pieceLength": "طول القطعة (سم):"
 
 }

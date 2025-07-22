@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><a href="products.html" data-i18n="navProducts"></a></li>
                         <li><a href="projects.html" data-i18n="navProjects"></a></li>
                         <li><a href="calculator.html" data-i18n="navCalculator"></a></li>
+                        <li><a href="plasma-calculator.html" data-i18n="navPlasmaCalc"></a></li>
                         <li><a href="contact.html" data-i18n="navContact"></a></li>
                     </ul>
                 </nav>
@@ -112,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // --- تحديث رابط الواتساب بالرسالة المترجمة ---
         const whatsappLink = document.getElementById('whatsapp-link');
         if (whatsappLink && translations.whatsappMessage) {
             const phoneNumber = '213775458700';
@@ -181,10 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 5. وظائف خاصة بالصفحات ---
     function initializePageSpecificScripts() {
-        // كود الآلة الحاسبة
+        // كود الآلة الحاسبة للوزن
         const calculatorForm = document.getElementById('price-calculator');
         if (calculatorForm) {
-            const pricesPerKg = { beams: 150, plates: 140, rods: 130 }; // أسعار وهمية
+            const pricesPerKg = { beams: 150, plates: 140, rods: 130 };
             calculatorForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const type = document.getElementById('iron-type').value;
@@ -204,7 +204,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             });
         }
-        // تم حذف كود نموذج التواصل لأنه لم يعد ضرورياً بعد استخدام Formspree
+
+        // كود حاسبة قص البلازما
+        const plasmaForm = document.getElementById('plasma-calculator-form');
+        if (plasmaForm) {
+            const plasmaSheets = [
+                { type: 'N4', size: 'الصغيرة', width: 100, length: 200, price: 900000 },
+                { type: 'N4', size: 'الكبيرة', width: 125, length: 250, price: 1300000 },
+                { type: 'N3', size: 'الصغيرة', width: 100, length: 200, price: 800000 },
+                { type: 'N3', size: 'الكبيرة', width: 125, length: 250, price: 1150000 },
+                { type: 'N24', size: 'الكبيرة', width: 125, length: 250, price: 1000000 }
+            ];
+
+            plasmaForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const sheetType = document.getElementById('sheet-type').value;
+                const pieceWidth = parseFloat(document.getElementById('piece-width').value);
+                const pieceLength = parseFloat(document.getElementById('piece-length').value);
+                const resultsOutput = document.getElementById('plasma-results-output');
+
+                if (isNaN(pieceWidth) || isNaN(pieceLength) || pieceWidth <= 0 || pieceLength <= 0) {
+                    resultsOutput.innerHTML = `<p style="color: red;">الرجاء إدخال قياسات صحيحة.</p>`;
+                    return;
+                }
+
+                const availableSheets = plasmaSheets
+                    .filter(sheet => sheet.type === sheetType)
+                    .sort((a, b) => a.price - b.price);
+
+                let chosenSheet = null;
+                for (const sheet of availableSheets) {
+                    const canFit = (pieceWidth <= sheet.width && pieceLength <= sheet.length) || 
+                                 (pieceWidth <= sheet.length && pieceLength <= sheet.width);
+
+                    if (canFit) {
+                        chosenSheet = sheet;
+                        break;
+                    }
+                }
+
+                if (chosenSheet) {
+                    const formattedPrice = chosenSheet.price.toLocaleString('fr-FR');
+                    resultsOutput.innerHTML = `
+                        <p>للحصول على قطعتك، يجب شراء <strong>الصفيحة ${chosenSheet.type} ${chosenSheet.size} (${chosenSheet.width}x${chosenSheet.length} سم)</strong>.</p>
+                        <p>التكلفة الإجمالية هي:</p>
+                        <p class="price">${formattedPrice} د.ج</p>
+                    `;
+                } else {
+                    resultsOutput.innerHTML = `<p style="color: red;">لا توجد صفيحة قياسية تتسع لهذه القياسات الكبيرة.</p>`;
+                }
+            });
+        }
     }
 
     // --- 6. التشغيل ---
