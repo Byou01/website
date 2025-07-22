@@ -194,3 +194,44 @@ html[dir="ltr"] .specs-table th, html[dir="ltr"] .specs-table td { text-align: l
     .footer-content { grid-template-columns: 1fr; }
     .controls-container { flex-grow: 1; justify-content: center; margin-top: 10px; }
 }
+/* --- Urgent Contact Section --- */
+.urgent-contact-section {
+    padding-top: 0;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+.urgent-contact-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.urgent-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    background-color: var(--bg-secondary-color);
+    color: var(--heading-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.urgent-link:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.urgent-link i {
+    font-size: 2rem;
+}
