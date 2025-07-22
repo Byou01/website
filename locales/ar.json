@@ -57,5 +57,8 @@
     "formQuantity": "الكمية المطلوبة (تقريبي):",
     "formMessage": "رسالة إضافية (اختياري):",
     "formSubmit": "إرسال الطلب",
-    "formSuccess": "شكراً لك! تم استلام طلبك وسنتواصل معك قريباً."
+    "formSuccess": "شكراً لك! تم استلام طلبك وسنتواصل معك قريباً.",
+    "urgentContactTitle": "للتواصل المباشر",
+    "urgentContactWhatsApp": "واتساب",
+    "urgentContactPhone": "هاتف"
 }

@@ -52,5 +52,8 @@
     "formOther": "Other",
     "formQuantity": "Required Quantity (approx.):",
     "formMessage": "Additional Message (optional):",
-    "formSubmit": "Send Request"
+    "formSubmit": "Send Request",
+    "urgentContactTitle": "For direct Inquiries",
+    "urgentContactWhatsApp": "WhatsApp",
+    "urgentContactPhone": "Phone"
 }

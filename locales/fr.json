@@ -52,5 +52,8 @@
     "formOther": "Autre",
     "formQuantity": "Quantité requise (approx.) :",
     "formMessage": "Message supplémentaire (optionnel) :",
-    "formSubmit": "Envoyer la demande"
+    "formSubmit": "Envoyer la demande",
+    "urgentContactTitle": "Pour les demandes urgentes",
+    "urgentContactWhatsApp": "WhatsApp",
+    "urgentContactPhone": "Téléphone"
 }
