@@ -183,52 +183,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 5. وظائف خاصة بالصفحات (الآلة الحاسبة، نموذج التواصل) ---
-    function initializePageSpecificScripts() {
-        // كود الآلة الحاسبة
-        const calculatorForm = document.getElementById('price-calculator');
-        if (calculatorForm) {
-            const pricesPerKg = { beams: 150, plates: 140, rods: 130 }; // أسعار وهمية
-            calculatorForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const type = document.getElementById('iron-type').value;
-                const quantity = parseFloat(document.getElementById('quantity').value);
-                const resultsOutput = document.getElementById('results-output');
-                
-                if (isNaN(quantity) || quantity <= 0) {
-                    resultsOutput.innerHTML = `<p style="color: red;">${translations.invalidInput || 'الرجاء إدخال كمية صالحة.'}</p>`;
-                    return;
-                }
-                const pricePerUnit = pricesPerKg[type];
-                const totalPrice = (quantity * pricePerUnit).toLocaleString(document.documentElement.lang.startsWith('en') ? 'en-US' : 'fr-FR');
-                resultsOutput.innerHTML = `
-                    <p>${translations.estimatedCost || 'التكلفة التقديرية:'}</p>
-                    <p class="price">${totalPrice} DZD</p>
-                    <small>${translations.priceDisclaimer || '*الأسعار تقديرية وقد تختلف.'}</small>
-                `;
-            });
-        }
+   function initializePageSpecificScripts() {
+    // كود الآلة الحاسبة
+    const calculatorForm = document.getElementById('price-calculator');
 
-        // كود نموذج التواصل
-        const contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                let feedbackDiv = document.getElementById('form-feedback');
-                if (!feedbackDiv) {
-                    feedbackDiv = document.createElement('div');
-                    feedbackDiv.id = 'form-feedback';
-                    contactForm.appendChild(feedbackDiv);
-                }
-                feedbackDiv.textContent = translations.formSuccess || 'شكراً لك! تم استلام طلبك وسنتواصل معك قريباً.';
-                feedbackDiv.className = 'success';
-                feedbackDiv.style.display = 'block';
-                contactForm.reset();
-                setTimeout(() => {
-                    feedbackDiv.style.display = 'none';
-                }, 5000);
-            });
-        }
-    }
+    // أضف هذا الشرط من هنا
+    if (calculatorForm) { 
+        const pricesPerKg = { beams: 150, plates: 140, rods: 130 };
+        calculatorForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const type = document.getElementById('iron-type').value;
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const resultsOutput = document.getElementById('results-output');
+
+            if (isNaN(quantity) || quantity <= 0) {
+                resultsOutput.innerHTML = `<p style="color: red;">${translations.invalidInput || 'الرجاء إدخال كمية صالحة.'}</p>`;
+                return;
+            }
+            const pricePerUnit = pricesPerKg[type];
+            const totalPrice = (quantity * pricePerUnit).toLocaleString(document.documentElement.lang.startsWith('en') ? 'en-US' : 'fr-FR');
+            resultsOutput.innerHTML = `
+                <p>${translations.estimatedCost || 'التكلفة التقديرية:'}</p>
+                <p class="price">${totalPrice} DZD</p>
+                <small>${translations.priceDisclaimer || '*الأسعار تقديرية وقد تختلف.'}</small>
+            `;
+        });
+    } // إلى هنا
+}
+
+       
 
 
     // --- 6. التشغيل ---
