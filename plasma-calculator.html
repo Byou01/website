@@ -9,7 +9,8 @@
 </head>
 <body>
     <header class="main-header">
-        </header>
+        <!-- سيتم ملؤه بواسطة JS -->
+    </header>
 
     <main>
         <section class="page-header">
@@ -24,21 +25,34 @@
                     <div class="calculator-form">
                         <h3 data-i18n="plasmaCalcSubTitle">أدخل قياسات القطعة المطلوبة</h3>
                         <form id="plasma-calculator-form">
+                            <!-- اختيار نوع الصفيحة -->
                             <div class="form-group">
-                                <label for="sheet-type" data-i18n="sheetType">نوع الصفيحة:</label>
+                                <label for="sheet-type" data-i18n="sheetType">1. اختر نوع الصفيحة:</label>
                                 <select id="sheet-type">
+                                    <option value="" disabled selected data-i18n="selectOption">-- اختر --</option>
                                     <option value="N4">N4</option>
                                     <option value="N3">N3</option>
                                     <option value="N24">N24</option>
                                 </select>
                             </div>
+                            
+                            <!-- اختيار حجم الصفيحة (سيتم ملؤه بواسطة JS) -->
                             <div class="form-group">
-                                <label for="piece-width" data-i18n="pieceWidth">عرض القطعة (سم):</label>
+                                <label for="sheet-size" data-i18n="sheetSize">2. اختر حجم الصفيحة للشراء:</label>
+                                <select id="sheet-size" disabled>
+                                    <option value="" data-i18n="selectSheetTypeFirst">-- اختر نوع الصفيحة أولاً --</option>
+                                </select>
+                            </div>
+
+                            <!-- إدخال أبعاد القطعة -->
+                            <div class="form-group">
+                                <label for="piece-width" data-i18n="pieceWidth">3. عرض القطعة المطلوبة (سم):</label>
                                 <input type="number" id="piece-width" min="1" required>
                             </div>
                             <div class="form-group">
-                                <label for="piece-length" data-i18n="pieceLength">طول القطعة (سم):</label>
+                                <label for="piece-length" data-i18n="pieceLength">4. طول القطعة المطلوبة (سم):</label>
                                 <input type="number" id="piece-length" min="1" required>
+                                <small data-i18n="shapeNote">*للأشكال غير المستطيلة، أدخل أقصى طول وأقصى عرض.</small>
                             </div>
                             <button type="submit" class="btn btn-primary" data-i18n="calcButton">احسب التكلفة</button>
                         </form>
@@ -55,7 +69,8 @@
     </main>
 
     <footer class="main-footer">
-        </footer>
+        <!-- سيتم ملؤه بواسطة JS -->
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
