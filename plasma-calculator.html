@@ -25,6 +25,7 @@
                     <div class="calculator-form">
                         <h3 data-i18n="plasmaCalcSubTitle">أدخل قياسات القطعة المطلوبة</h3>
                         <form id="plasma-calculator-form">
+                            <!-- الخطوة 1: اختيار نوع الصفيحة -->
                             <div class="form-group">
                                 <label for="sheet-type" data-i18n="sheetType">1. اختر نوع الصفيحة:</label>
                                 <select id="sheet-type">
@@ -35,29 +36,32 @@
                                 </select>
                             </div>
                             
+                            <!-- الخطوة 2: إدخال أبعاد القطعة -->
                             <div class="form-group">
-                                <label for="sheet-size" data-i18n="sheetSize">2. اختر حجم الصفيحة للشراء:</label>
-                                <select id="sheet-size" disabled>
-                                    <option value="" data-i18n="selectSheetTypeFirst">-- اختر نوع الصفيحة أولاً --</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="piece-width" data-i18n="pieceWidth">3. عرض القطعة المطلوبة (سم):</label>
+                                <label for="piece-width" data-i18n="pieceWidth">2. عرض القطعة المطلوبة (سم):</label>
                                 <input type="number" id="piece-width" min="1" required>
                             </div>
                             <div class="form-group">
-                                <label for="piece-length" data-i18n="pieceLength">4. طول القطعة المطلوبة (سم):</label>
+                                <label for="piece-length" data-i18n="pieceLength">3. طول القطعة المطلوبة (سم):</label>
                                 <input type="number" id="piece-length" min="1" required>
                                 <small data-i18n="shapeNote">*للأشكال غير المستطيلة، أدخل أقصى طول وأقصى عرض.</small>
                             </div>
+
+                            <!-- الخطوة 3: اختيار حجم الصفيحة (سيتم ملؤه تلقائياً) -->
+                            <div class="form-group">
+                                <label for="sheet-size" data-i18n="sheetSize">4. حجم الصفيحة المقترح للشراء:</label>
+                                <select id="sheet-size" disabled>
+                                    <option value="" data-i18n="enterDimsFirst">-- أدخل الأبعاد أولاً --</option>
+                                </select>
+                            </div>
+
                             <button type="submit" class="btn btn-primary" data-i18n="calcButton">احسب التكلفة</button>
                         </form>
                     </div>
                     <div class="calculator-results">
                         <h3 data-i18n="calcResultsTitle">النتائج</h3>
                         <div id="plasma-results-output">
-                            <p data-i18n="calcResultsPrompt">أدخل البيانات واضغط على زر الحساب لعرض التكلفة.</p>
+                            <p data-i18n="calcResultsPrompt">أدخل البيانات لعرض التكلفة.</p>
                         </div>
                     </div>
                 </div>

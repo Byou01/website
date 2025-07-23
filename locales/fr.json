@@ -78,5 +78,6 @@
     "remainingDims": "Dimensions Restantes (approx.):",
     "invalidInput": "Entrée invalide ! Veuillez saisir un nombre positif",
     "footerRights": "Tous droits réservés.",
-    "langNotAvailable": "Langue demandée non disponible, utilisation du français"
+    "langNotAvailable": "Langue demandée non disponible, utilisation du français",
+    "enterDimsFirst": "-- Entrez d'abord les dimensions --"
 }

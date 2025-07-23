@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
         updateActiveNav();
-        updatePlasmaCalculatorDropdowns();
+        handlePlasmaInputChange(); // تحديث القائمة عند تغيير اللغة
     };
 
     // --- 3. ربط الأحداث ---
@@ -147,64 +147,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 5. وظائف خاصة بالصفحات ---
-    function updatePlasmaCalculatorDropdowns() {
+    function handlePlasmaInputChange() {
         const sheetTypeSelect = document.getElementById('sheet-type');
+        const pieceWidthInput = document.getElementById('piece-width');
+        const pieceLengthInput = document.getElementById('piece-length');
         const sheetSizeSelect = document.getElementById('sheet-size');
-        if (!sheetTypeSelect || !sheetSizeSelect) return;
+
+        if (!sheetTypeSelect || !pieceWidthInput || !pieceLengthInput || !sheetSizeSelect) return;
 
         const selectedType = sheetTypeSelect.value;
+        const pieceWidth = parseFloat(pieceWidthInput.value);
+        const pieceLength = parseFloat(pieceLengthInput.value);
         const lang = document.documentElement.lang;
-        const currentSelectedId = sheetSizeSelect.value;
 
-        sheetSizeSelect.innerHTML = `<option value="" disabled selected>${translations.selectOption || '-- اختر --'}</option>`;
-        if (!selectedType) {
+        if (!selectedType || isNaN(pieceWidth) || isNaN(pieceLength) || pieceWidth <= 0 || pieceLength <= 0) {
             sheetSizeSelect.disabled = true;
-            sheetSizeSelect.innerHTML = `<option value="">${translations.selectSheetTypeFirst || '-- اختر نوع الصفيحة أولاً --'}</option>`;
+            sheetSizeSelect.innerHTML = `<option value="">${translations.enterDimsFirst || '-- أدخل الأبعاد أولاً --'}</option>`;
             return;
         }
 
-        const relevantParts = standardParts.filter(p => p.type === selectedType);
-        relevantParts.forEach(part => {
+        const possibleParts = standardParts
+            .filter(p => p.type === selectedType)
+            .filter(p => (pieceWidth <= p.width && pieceLength <= p.length) || (pieceWidth <= p.length && pieceLength <= p.width))
+            .sort((a, b) => a.price - b.price);
+
+        if (possibleParts.length === 0) {
+            sheetSizeSelect.disabled = true;
+            sheetSizeSelect.innerHTML = `<option value="">${translations.noSheetError || 'لا توجد صفيحة مناسبة'}</option>`;
+            return;
+        }
+        
+        sheetSizeSelect.innerHTML = '';
+        possibleParts.forEach(part => {
             let partName = part.name;
             if (lang === 'en') partName = part.name_en;
             if (lang === 'fr') partName = part.name_fr;
             const option = new Option(partName, part.id);
             sheetSizeSelect.add(option);
         });
-        if (currentSelectedId) sheetSizeSelect.value = currentSelectedId;
+
+        // The first part in the sorted list is the cheapest recommendation
+        sheetSizeSelect.value = possibleParts[0].id;
         sheetSizeSelect.disabled = false;
     }
 
     function initializePageSpecificScripts() {
-        // --- حاسبة الوزن والسعر القديمة ---
-        const calculatorForm = document.getElementById('price-calculator');
-        if (calculatorForm) {
-            const pricesPerKg = { beams: 150, plates: 140, rods: 130 };
-            calculatorForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const type = document.getElementById('iron-type').value;
-                const quantity = parseFloat(document.getElementById('quantity').value);
-                const resultsOutput = document.getElementById('results-output');
-                
-                if (isNaN(quantity) || quantity <= 0) {
-                    resultsOutput.innerHTML = `<p style="color: red;">${translations.invalidInput || 'الرجاء إدخال كمية صالحة.'}</p>`;
-                    return;
-                }
-                const pricePerUnit = pricesPerKg[type];
-                const totalPrice = (quantity * pricePerUnit).toLocaleString(document.documentElement.lang === 'fr' ? 'fr-FR' : 'en-US');
-                resultsOutput.innerHTML = `
-                    <p>${translations.estimatedCost || 'التكلفة التقديرية:'}</p>
-                    <p class="price">${totalPrice} DZD</p>
-                    <small>${translations.priceDisclaimer || '*الأسعار تقديرية وقد تختلف.'}</small>
-                `;
-            });
-        }
-
-        // --- حاسبة قص البلازما الجديدة ---
+        // --- حاسبة البلازما الجديدة ---
         const plasmaForm = document.getElementById('plasma-calculator-form');
         if (plasmaForm) {
-            const sheetTypeSelect = document.getElementById('sheet-type');
-            sheetTypeSelect.addEventListener('change', updatePlasmaCalculatorDropdowns);
+            document.getElementById('sheet-type').addEventListener('change', handlePlasmaInputChange);
+            document.getElementById('piece-width').addEventListener('input', handlePlasmaInputChange);
+            document.getElementById('piece-length').addEventListener('input', handlePlasmaInputChange);
 
             plasmaForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -214,19 +207,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pieceLength = parseFloat(document.getElementById('piece-length').value);
                 const resultsOutput = document.getElementById('plasma-results-output');
 
-                if (!chosenPartId || isNaN(pieceWidth) || isNaN(pieceLength) || pieceWidth <= 0 || pieceLength <= 0) {
+                if (!chosenPartId) {
                     resultsOutput.innerHTML = `<p style="color: red;">${translations.fillAllFields || 'الرجاء ملء جميع الحقول بشكل صحيح.'}</p>`;
                     return;
                 }
 
                 const chosenPart = standardParts.find(p => p.id === chosenPartId);
-                const canFit = (pieceWidth <= chosenPart.width && pieceLength <= chosenPart.length) || (pieceWidth <= chosenPart.length && pieceLength <= chosenPart.width);
-
-                if (!canFit) {
-                    resultsOutput.innerHTML = `<p style="color: red;">${translations.pieceTooLarge || 'القطعة المطلوبة أكبر من حجم الصفيحة المختارة.'}</p>`;
-                    return;
-                }
-
                 const materialCost = chosenPart.price;
                 const perimeterCm = (pieceWidth + pieceLength) * 2;
                 let serviceCost = 0;
