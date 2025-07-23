@@ -242,7 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-
     // --- 6. التشغيل ---
     async function initializeSite() {
         loadCommonComponents();
@@ -251,4 +250,5 @@ document.addEventListener('DOMContentLoaded', () => {
         initializePageSpecificScripts();
     }
     initializeSite();
+    // Re-deploy trigger
 });
