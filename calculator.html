@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="plasmaCalcPageTitle">[اسم المحل] | حاسبة تكلفة البلازما</title>
+    <title data-i18n="calculatorPageTitle">[اسم المحل] | حاسبة الوزن والسعر</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -15,7 +15,7 @@
     <main>
         <section class="page-header">
             <div class="container">
-                <h1 data-i18n="plasmaCalcTitle">حاسبة تكلفة قص البلازما</h1>
+                <h1 data-i18n="navCalculator">حاسبة الوزن والسعر</h1>
             </div>
         </section>
 
@@ -23,44 +23,27 @@
             <div class="container">
                 <div class="calculator-wrapper">
                     <div class="calculator-form">
-                        <h3 data-i18n="plasmaCalcSubTitle">أدخل قياسات القطعة المطلوبة</h3>
-                        <form id="plasma-calculator-form">
-                            <!-- اختيار نوع الصفيحة -->
+                        <h3 data-i18n="calcTitle">حساب تكلفة الحديد</h3>
+                        <form id="price-calculator">
                             <div class="form-group">
-                                <label for="sheet-type" data-i18n="sheetType">1. اختر نوع الصفيحة:</label>
-                                <select id="sheet-type">
-                                    <option value="" disabled selected data-i18n="selectOption">-- اختر --</option>
-                                    <option value="N4">N4</option>
-                                    <option value="N3">N3</option>
-                                    <option value="N24">N24</option>
+                                <label for="iron-type" data-i18n="calcIronType">نوع الحديد:</label>
+                                <select id="iron-type">
+                                    <option value="beams" data-i18n="productBeams">عوارض حديدية</option>
+                                    <option value="plates" data-i18n="productPlates">ألواح فولاذية</option>
+                                    <option value="rods" data-i18n="productRods">قضبان حديدية</option>
                                 </select>
                             </div>
-                            
-                            <!-- اختيار حجم الصفيحة (سيتم ملؤه بواسطة JS) -->
                             <div class="form-group">
-                                <label for="sheet-size" data-i18n="sheetSize">2. اختر حجم الصفيحة للشراء:</label>
-                                <select id="sheet-size" disabled>
-                                    <option value="" data-i18n="selectSheetTypeFirst">-- اختر نوع الصفيحة أولاً --</option>
-                                </select>
+                                <label for="quantity" data-i18n="calcQuantity">الكمية (بالكيلوغرام):</label>
+                                <input type="number" id="quantity" min="1" value="1000">
                             </div>
-
-                            <!-- إدخال أبعاد القطعة -->
-                            <div class="form-group">
-                                <label for="piece-width" data-i18n="pieceWidth">3. عرض القطعة المطلوبة (سم):</label>
-                                <input type="number" id="piece-width" min="1" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="piece-length" data-i18n="pieceLength">4. طول القطعة المطلوبة (سم):</label>
-                                <input type="number" id="piece-length" min="1" required>
-                                <small data-i18n="shapeNote">*للأشكال غير المستطيلة، أدخل أقصى طول وأقصى عرض.</small>
-                            </div>
-                            <button type="submit" class="btn btn-primary" data-i18n="calcButton">احسب التكلفة</button>
+                            <button type="submit" class="btn btn-primary" data-i18n="calcButton">احسب السعر</button>
                         </form>
                     </div>
                     <div class="calculator-results">
                         <h3 data-i18n="calcResultsTitle">النتائج</h3>
-                        <div id="plasma-results-output">
-                            <p data-i18n="calcResultsPrompt">أدخل البيانات واضغط على زر الحساب لعرض التكلفة.</p>
+                        <div id="results-output">
+                            <p data-i18n="calcResultsPrompt">أدخل البيانات واضغط على زر الحساب لعرض التكلفة التقديرية.</p>
                         </div>
                     </div>
                 </div>
